@@ -1,0 +1,19 @@
+--- 
+title: "Dealing With Strings in R"
+author: "Lingyun Zhang"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+link-citations: yes
+links-as-notes: true
+colorlinks: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preface {-}
+
+I have studied Chapter 14 of the book, *R for Data Science*, by Garrett Grolemund and Hadley Wickham. I put my notes and other relevant stuff here. 
