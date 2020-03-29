@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="knowledge-points.html">
+<link rel="prev" href="knowledge-points.html">
+<link rel="next" href="regular-expressions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -125,22 +125,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Dealing With Strings in R</h1>
-<h4 class="author"><em>Lingyun Zhang</em></h4>
-<h4 class="date"><em>2020-03-29</em></h4>
-</div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>I have studied Chapter 14 of the book, <em>R for Data Science</em>, by Garrett Grolemund and Hadley Wickham. I put my notes and other relevant stuff here.</p>
+<div id="useful-functions" class="section level1">
+<h1><span class="header-section-number">2</span> Useful functions</h1>
+<p>All the functions that start with <code>str_</code> are from <code>stringr</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)</code></pre></div>
+<ul>
+<li><p>String length: <code>str_length(a_vector_of_strings)</code></p></li>
+<li><p>string concatenation: <code>str_c(sring_a, sring_b)</code> or <code>paste0(string_a, sting_b)</code></p></li>
+<li><p>Make a vector of strings become one string: <code>str_c(a_vector_of_strings, collapse = &quot;&quot;)</code> or <code>paste0(a_vector_of_string, collapse = &quot;&quot;)</code></p></li>
+<li><p>Take a sub-string: <code>str_sub(a_srring, start = ?, end = ?)</code>. Note that the <code>start</code> and <code>end</code> can take negative values.</p></li>
+<li><p>Change to lower- upper- or title-case: <code>str_to_lower()</code>, <code>str_to_upper()</code>, <code>str_to_title()</code></p></li>
+<li><p>Trim white spaces in a string: <code>str_trim(a_string, side = c('left', 'right', 'both'))</code></p></li>
+<li><p>Detect matches: <code>str_detect(a_string, pattern)</code></p></li>
+<li><p>Get subset: <code>str_subset(a_vector_of_string, pattern)</code></p></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="knowledge-points.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="knowledge-points.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regular-expressions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -17,3 +17,109 @@ knitr::opts_chunk$set(echo = TRUE)
 # Preface {-}
 
 I have studied Chapter 14 of the book, *R for Data Science*, by Garrett Grolemund and Hadley Wickham. I put my notes and other relevant stuff here. 
+
+# Knowledge points
+
+- We can use either single or double quotes to create a string. If string contains quotes, then first use single quotes and then use double quotes, e.g. `'Nelson Mandela said, "It always seems impossible until it's done."'`
+
+- Use `\` to escape, e.g. `'\\'` gives the backslash.
+
+- Special characters: `'\n'` (a new line); `"\u00b5"` (Greek letter $\mu$). Type `?'"'` into console to find more.
+
+# Useful functions
+
+All the functions that start with `str_` are from `stringr` package.
+
+```{r, warning=FALSE, message=FALSE}
+library(stringr)
+```
+
+- String length: `str_length(a_vector_of_strings)`
+
+- string concatenation: `str_c(sring_a, sring_b)` or `paste0(string_a, sting_b)` 
+
+- Make a vector of strings become one string: `str_c(a_vector_of_strings, collapse = "")`  or `paste0(a_vector_of_string, collapse = "")`
+
+- Take a sub-string: `str_sub(a_srring, start = ?, end = ?)`. Note that the `start` and `end` can take negative values.
+
+- Change to lower- upper- or title-case: `str_to_lower()`, `str_to_upper()`, `str_to_title()`
+
+- Trim white spaces in a string: `str_trim(a_string, side = c('left', 'right', 'both'))`
+
+- Detect matches: `str_detect(a_string, pattern)`
+
+- Get subset: `str_subset(a_vector_of_string, pattern)`
+
+# Regular expressions
+
+
+
+# Examples
+
+## Change the first letter to lowercase {-}
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+
+fk_string <- c("Apple Pie", "Chocolate Cake")
+str_sub(fk_string, 1, 1) <- str_to_lower(str_sub(fk_string, 1, 1)) 
+fk_string
+```
+
+## Using `noquote()` {-}
+
+```{r, warning=FALSE, message=FALSE}
+fk_df <- data.frame(xyz = 1:3,
+                    yzx = 2:4,
+                    zxy = 3:5)
+list(names(fk_df), noquote(names(fk_df)))
+```
+
+## Using `str_detect()` and `str_sub()` {-}
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+corpus <- stringr::words
+
+(three_letter_words <- corpus[str_detect(corpus, "^[a-z][a-z][a-z]$")])
+
+(seven_or_more_letter_words <- corpus[str_detect(corpus, "^.......+$")])
+
+(start_with_y <- corpus[str_detect(corpus, "^y")])
+(end_with_x <- corpus[str_detect(corpus, "x$")])
+ 
+(start_with_vowel <- corpus[str_detect(corpus, "^[aeiou]")])
+(not_contain_vowel <- corpus[str_detect(corpus, "^[^aeiou]*$")])
+ 
+(end_with_ed_but_not_eed <-
+  corpus[str_detect(corpus, "[^e](ed)$")])
+
+(end_with_ing_or_ise <-
+  corpus[str_detect(corpus, "(ing)|(ise)$")])
+
+(start_with_3_consonants <-
+  corpus[str_detect(corpus, "^[^aeiou]{3}")])
+
+(three_or_more_vowels_in_a_row <-
+  corpus[str_detect(corpus, "[aeiou]{3,}")])
+
+(two_or_more_vowel_consonant_pairs_in_a_row <-
+  corpus[str_detect(corpus, "([aeiou][^aeiou]){2,}")])
+
+(start_or_end_with_x <-
+  str_subset(corpus, "^x|x$"))
+ 
+(start_with_vowel_and_end_with_consonant <-
+  str_subset(corpus, "^[aeiou].*[^aeiou]$"))
+
+a_words <-
+  str_subset(corpus, "a")
+ae_words <-
+  str_subset(a_words, "e")
+aei_words <- str_subset(ae_words, "i")
+(aeio_words <- str_subset(aei_words, "o"))
+(aeiou_words <- str_subset(aeio_words, "u"))
+
+
+```
+
