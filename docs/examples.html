@@ -360,17 +360,17 @@ fk_data &lt;-<span class="st"> </span>
 
 rm_prefix_df &lt;-<span class="st"> </span>
 <span class="st">  </span>fk_data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_pre_fix =</span> <span class="kw">as.numeric</span>(<span class="kw">str_extract</span>(a_var, <span class="st">&quot;^</span><span class="ch">\\</span><span class="st">d+&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">the_prefix =</span> <span class="kw">as.numeric</span>(<span class="kw">str_extract</span>(a_var, <span class="st">&quot;^</span><span class="ch">\\</span><span class="st">d+&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">a_var =</span> <span class="kw">str_replace</span>(a_var, <span class="st">&quot;^(</span><span class="ch">\\</span><span class="st">d+</span><span class="ch">\\</span><span class="st">s+)&quot;</span>, <span class="st">&quot;&quot;</span>))
 
 rm_prefix_df</code></pre></div>
 <pre><code>## # A tibble: 4 x 3
-##   a_var            x the_pre_fix
-##   &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
-## 1 poor 1       0.541          10
-## 2 ok 2        -0.967          20
-## 3 very good 3  0.268          30
-## 4 NA           2.04          999</code></pre>
+##   a_var            x the_prefix
+##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 poor 1      -0.527         10
+## 2 ok 2        -0.952         20
+## 3 very good 3  0.135         30
+## 4 NA           0.186        999</code></pre>
 </div>
 <div id="removing-a-suffix" class="section level2 unnumbered">
 <h2>Removing a suffix</h2>
@@ -390,9 +390,9 @@ rm_suffix_df</code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   region      x
 ##   &lt;chr&gt;   &lt;dbl&gt;
-## 1 A       1.15 
-## 2 AB     -0.786
-## 3 ABC    -0.738</code></pre>
+## 1 A       0.785
+## 2 AB     -0.421
+## 3 ABC     1.24</code></pre>
 
 </div>
 </div>

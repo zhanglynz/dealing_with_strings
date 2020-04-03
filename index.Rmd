@@ -171,7 +171,7 @@ fk_data <-
 
 rm_prefix_df <- 
   fk_data %>% 
-  mutate(the_pre_fix = as.numeric(str_extract(a_var, "^\\d+"))) %>% 
+  mutate(the_prefix = as.numeric(str_extract(a_var, "^\\d+"))) %>% 
   mutate(a_var = str_replace(a_var, "^(\\d+\\s+)", ""))
 
 rm_prefix_df
