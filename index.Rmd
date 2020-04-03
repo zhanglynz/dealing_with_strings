@@ -20,7 +20,7 @@ I have studied Chapter 14 of the book, *R for Data Science*, by Garrett Grolemun
 
 # Knowledge points
 
-- We can use either single or double quotes to create a string. If string contains quotes, then first use single quotes and then use double quotes, e.g. `'Nelson Mandela said, "It always seems impossible until it's done."'`
+- We can use either single or double quotes to create a string. If string contains quotes, then first use single quotes and then use double quotes, e.g. `'Nelson Mandela said, "It always seems impossible until it\'s done."'`
 
 - Use `\` to escape, e.g. `'\\'` gives the backslash.
 
@@ -36,7 +36,7 @@ library(stringr)
 
 - String length: `str_length(a_vector_of_strings)`
 
-- string concatenation: `str_c(sring_a, sring_b)` or `paste0(string_a, sting_b)` 
+- string concatenation: `str_c(sring_a, sring_b)` or `paste0(string_a, sting_b)` ,:NB: use `sep` (e.g. `sep = ","` to control how they are separated.)
 
 - Make a vector of strings become one string: `str_c(a_vector_of_strings, collapse = "")`  or `paste0(a_vector_of_string, collapse = "")`
 
@@ -51,6 +51,40 @@ library(stringr)
 - Get subset: `str_subset(a_vector_of_string, pattern)`
 
 # Regular expressions
+
+Firstly, what is a regular expression? The best way to answer this question is to give a few examples. 
+
+**Example 1:** `abc` is a regular expression, it means a string `abc`. 
+
+**Example 2:** `.` is a regular expression, and it means any a character. So, `.` is a special character in the regular expression system.
+
+**Example 3:** `\` is a regular expression and it means escape. So, `\` is a special character in the regular system. To literally have the symbol `\`, we use string expression `\\\\`.
+
+
+**Example 4:** `\.` is **defined** as the symbol dot in the regular expression system, and we use string `\\.` to **express** it.
+
+
+From the above examples, we should have noticed that we must learn these special characters by heart.
+
+special character   | match/meaning   | string for this symbol
+:------------------:|:-------:|:---------------------:
+`.`                   | any character | `\\.`
+`\`                   | escape  | `\\\\`
+`^`                   | the start | `\\^`
+`$`                   | the end   | `\\$`
+`\d`                    | any digit | `\\d`
+`\s`                    | any white space | `\\s`
+`[abc]`                 | a or b or c |
+`[^abc]`                | anything except a, b or c |
+`|`                     | logic operator "or" | `\\|`
+`?`                     | zero or one  | `\\?`
+`*`                     | zero or more |  `\\*`
+`+`                      | one or more |  `\\+`
+{n}                      | exactly n   |
+{n,}                     | n or more   |
+{,m}                     | at most m   |
+{n,m}                    | between n and m |
+
 
 
 
@@ -121,5 +155,44 @@ aei_words <- str_subset(ae_words, "i")
 (aeiou_words <- str_subset(aeio_words, "u"))
 
 
+```
+
+## Removing a prefix {-}
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+fk_data <- 
+  tibble(a_var = c("10   poor 1", 
+                   "20  ok 2", 
+                   "30  very good 3",
+                   "999 NA"),
+         x = rnorm(4))
+
+rm_prefix_df <- 
+  fk_data %>% 
+  mutate(the_pre_fix = as.numeric(str_extract(a_var, "^\\d+"))) %>% 
+  mutate(a_var = str_replace(a_var, "^(\\d+\\s+)", ""))
+
+rm_prefix_df
+```
+
+
+## Removing a suffix {-}
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+fk_data <- 
+  tibble(region = c("A region", 
+                    "AB region", 
+                    "ABC region"),
+         x = rnorm(3))
+
+rm_suffix_df <- 
+  fk_data %>% 
+  mutate(region = str_replace(region, "\\s(region)$", ""))
+
+rm_suffix_df
 ```
 

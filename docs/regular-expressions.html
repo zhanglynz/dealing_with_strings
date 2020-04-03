@@ -25,7 +25,7 @@
 <meta name="author" content="Lingyun Zhang">
 
 
-<meta name="date" content="2020-03-29">
+<meta name="date" content="2020-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -107,6 +107,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#change-the-first-letter-to-lowercase"><i class="fa fa-check"></i>Change the first letter to lowercase</a></li>
 <li><a href="examples.html#using-noquote">Using <code>noquote()</code></a></li>
 <li><a href="examples.html#using-str_detect-and-str_sub">Using <code>str_detect()</code> and <code>str_sub()</code></a></li>
+<li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-prefix"><i class="fa fa-check"></i>Removing a prefix</a></li>
+<li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-suffix"><i class="fa fa-check"></i>Removing a suffix</a></li>
 </ul></li>
 </ul>
 
@@ -127,6 +129,103 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="regular-expressions" class="section level1">
 <h1><span class="header-section-number">3</span> Regular expressions</h1>
+<p>Firstly, what is a regular expression? The best way to answer this question is to give a few examples.</p>
+<p><strong>Example 1:</strong> <code>abc</code> is a regular expression, it means a string <code>abc</code>.</p>
+<p><strong>Example 2:</strong> <code>.</code> is a regular expression, and it means any a character. So, <code>.</code> is a special character in the regular expression system.</p>
+<p><strong>Example 3:</strong> <code>\</code> is a regular expression and it means escape. So, <code>\</code> is a special character in the regular system. To literally have the symbol <code>\</code>, we use string expression <code>\\\\</code>.</p>
+<p><strong>Example 4:</strong> <code>\.</code> is <strong>defined</strong> as the symbol dot in the regular expression system, and we use string <code>\\.</code> to <strong>express</strong> it.</p>
+<p>From the above examples, we should have noticed that we must learn these special characters by heart.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">special character</th>
+<th align="center">match/meaning</th>
+<th align="center">string for this symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>.</code></td>
+<td align="center">any character</td>
+<td align="center"><code>\\.</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>\</code></td>
+<td align="center">escape</td>
+<td align="center"><code>\\\\</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>^</code></td>
+<td align="center">the start</td>
+<td align="center"><code>\\^</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>$</code></td>
+<td align="center">the end</td>
+<td align="center"><code>\\$</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>\d</code></td>
+<td align="center">any digit</td>
+<td align="center"><code>\\d</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>\s</code></td>
+<td align="center">any white space</td>
+<td align="center"><code>\\s</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>[abc]</code></td>
+<td align="center">a or b or c</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><code>[^abc]</code></td>
+<td align="center">anything except a, b or c</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>|</code></td>
+<td align="center">logic operator “or”</td>
+<td align="center"><code>\\|</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>?</code></td>
+<td align="center">zero or one</td>
+<td align="center"><code>\\?</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>*</code></td>
+<td align="center">zero or more</td>
+<td align="center"><code>\\*</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>+</code></td>
+<td align="center">one or more</td>
+<td align="center"><code>\\+</code></td>
+</tr>
+<tr class="odd">
+<td align="center">{n}</td>
+<td align="center">exactly n</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">{n,}</td>
+<td align="center">n or more</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">{,m}</td>
+<td align="center">at most m</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">{n,m}</td>
+<td align="center">between n and m</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
 </div>
             </section>
 
