@@ -106,9 +106,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>4</b> Examples</a><ul>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#change-the-first-letter-to-lowercase"><i class="fa fa-check"></i>Change the first letter to lowercase</a></li>
 <li><a href="examples.html#using-noquote">Using <code>noquote()</code></a></li>
-<li><a href="examples.html#using-str_detect-and-str_sub">Using <code>str_detect()</code> and <code>str_sub()</code></a></li>
+<li><a href="examples.html#using-str_detect-and-str_subset">Using <code>str_detect()</code> and <code>str_subset()</code></a></li>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-prefix"><i class="fa fa-check"></i>Removing a prefix</a></li>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-suffix"><i class="fa fa-check"></i>Removing a suffix</a></li>
+<li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#roving-spaces"><i class="fa fa-check"></i>Roving spaces</a></li>
+<li><a href="examples.html#using-str_split_fixed">Using <code>str_split_fixed</code></a></li>
+<li><a href="examples.html#using-filter-and-str_detect">Using <code>filter</code> and <code>str_detect</code></a></li>
 </ul></li>
 </ul>
 
@@ -150,8 +153,8 @@ fk_string</code></pre></div>
 ## [[2]]
 ## [1] xyz yzx zxy</code></pre>
 </div>
-<div id="using-str_detect-and-str_sub" class="section level2 unnumbered">
-<h2>Using <code>str_detect()</code> and <code>str_sub()</code></h2>
+<div id="using-str_detect-and-str_subset" class="section level2 unnumbered">
+<h2>Using <code>str_detect()</code> and <code>str_subset()</code></h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
 corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 
@@ -367,10 +370,10 @@ rm_prefix_df</code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   a_var            x the_prefix
 ##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
-## 1 poor 1      -0.527         10
-## 2 ok 2        -0.952         20
-## 3 very good 3  0.135         30
-## 4 NA           0.186        999</code></pre>
+## 1 poor 1       0.984         10
+## 2 ok 2        -2.10          20
+## 3 very good 3  0.290         30
+## 4 NA           0.589        999</code></pre>
 </div>
 <div id="removing-a-suffix" class="section level2 unnumbered">
 <h2>Removing a suffix</h2>
@@ -382,17 +385,86 @@ fk_data &lt;-<span class="st"> </span>
                     <span class="st">&quot;ABC region&quot;</span>),
          <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">3</span>))
 
+## Method 1
 rm_suffix_df &lt;-<span class="st"> </span>
 <span class="st">  </span>fk_data <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">str_replace</span>(region, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s(region)$&quot;</span>, <span class="st">&quot;&quot;</span>))
 
-rm_suffix_df</code></pre></div>
+(rm_suffix_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 2
-##   region      x
-##   &lt;chr&gt;   &lt;dbl&gt;
-## 1 A       0.785
-## 2 AB     -0.421
-## 3 ABC     1.24</code></pre>
+##   region     x
+##   &lt;chr&gt;  &lt;dbl&gt;
+## 1 A      0.713
+## 2 AB     0.107
+## 3 ABC    0.208</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Method 2
+rm_suffix_df &lt;-<span class="st"> </span>
+<span class="st">  </span>fk_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">str_sub</span>(region, <span class="dv">1</span>, <span class="kw">nchar</span>(region) <span class="op">-</span><span class="st"> </span><span class="dv">7</span>))
+(rm_suffix_df)</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   region     x
+##   &lt;chr&gt;  &lt;dbl&gt;
+## 1 A      0.713
+## 2 AB     0.107
+## 3 ABC    0.208</code></pre>
+</div>
+<div id="roving-spaces" class="section level2 unnumbered">
+<h2>Roving spaces</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
+
+x &lt;-<span class="st"> &quot;   this  is  a    big    space problem.  &quot;</span>
+(x &lt;-<span class="st"> </span><span class="kw">str_trim</span>(x, <span class="dt">side =</span> <span class="st">&quot;both&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;this  is  a    big    space problem.&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(x, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot; &quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;this is a big space problem.&quot;</code></pre>
+</div>
+<div id="using-str_split_fixed" class="section level2 unnumbered">
+<h2>Using <code>str_split_fixed</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+fk_df &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">tibble</span>(<span class="dt">string =</span> 
+           <span class="kw">c</span>(<span class="st">&quot;NZTA: New Zealand Transport Agency&quot;</span>,
+             <span class="st">&quot;PSU: Primary Sampling Unit&quot;</span>,
+             <span class="st">&quot;NPD: Non Private Dwelling&quot;</span>))
+
+split_matrix &lt;-<span class="st"> </span><span class="kw">str_split_fixed</span>(fk_df<span class="op">$</span>string, <span class="st">&quot;:&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>)
+
+split_fk_df &lt;-<span class="st"> </span><span class="kw">as.tibble</span>(split_matrix)
+<span class="kw">names</span>(split_fk_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;description&quot;</span>)
+split_fk_df &lt;-<span class="st"> </span>
+<span class="st">  </span>split_fk_df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">description =</span> <span class="kw">str_trim</span>(description, <span class="dt">side =</span> <span class="st">&quot;left&quot;</span>))
+
+split_fk_df</code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   name  description                 
+##   &lt;chr&gt; &lt;chr&gt;                       
+## 1 NZTA  New Zealand Transport Agency
+## 2 PSU   Primary Sampling Unit       
+## 3 NPD   Non Private Dwelling</code></pre>
+</div>
+<div id="using-filter-and-str_detect" class="section level2 unnumbered">
+<h2>Using <code>filter</code> and <code>str_detect</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+df_<span class="dv">1</span> &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;x-18&quot;</span>, 
+                   <span class="kw">sample</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], <span class="dv">3</span>), 
+                   <span class="st">&quot;a-18&quot;</span>, 
+                   <span class="st">&quot;b-18&quot;</span>), 
+             <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">6</span>))
+
+df_<span class="dv">2</span> &lt;-<span class="st"> </span>
+<span class="st">  </span>df_<span class="dv">1</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(x, <span class="st">&quot;-&quot;</span>))
+
+df_<span class="dv">2</span></code></pre></div>
+<pre><code>##      x           y
+## 1 x-18 -0.83163701
+## 2 a-18 -0.31714041
+## 3 b-18  0.01725075</code></pre>
 
 </div>
 </div>

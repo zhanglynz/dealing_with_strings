@@ -106,9 +106,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>4</b> Examples</a><ul>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#change-the-first-letter-to-lowercase"><i class="fa fa-check"></i>Change the first letter to lowercase</a></li>
 <li><a href="examples.html#using-noquote">Using <code>noquote()</code></a></li>
-<li><a href="examples.html#using-str_detect-and-str_sub">Using <code>str_detect()</code> and <code>str_sub()</code></a></li>
+<li><a href="examples.html#using-str_detect-and-str_subset">Using <code>str_detect()</code> and <code>str_subset()</code></a></li>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-prefix"><i class="fa fa-check"></i>Removing a prefix</a></li>
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-a-suffix"><i class="fa fa-check"></i>Removing a suffix</a></li>
+<li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#roving-spaces"><i class="fa fa-check"></i>Roving spaces</a></li>
+<li><a href="examples.html#using-str_split_fixed">Using <code>str_split_fixed</code></a></li>
+<li><a href="examples.html#using-filter-and-str_detect">Using <code>filter</code> and <code>str_detect</code></a></li>
 </ul></li>
 </ul>
 
@@ -133,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)</code></pre></div>
 <ul>
 <li><p>String length: <code>str_length(a_vector_of_strings)</code></p></li>
-<li><p>string concatenation: <code>str_c(sring_a, sring_b)</code> or <code>paste0(string_a, sting_b)</code> ,:NB: use <code>sep</code> (e.g. <code>sep = &quot;,&quot;</code> to control how they are separated.)</p></li>
+<li><p>string concatenation: <code>str_c(sring_a, sring_b)</code> or <code>paste0(string_a, sting_b)</code>. NB: use <code>sep</code> (e.g. <code>sep = &quot;,&quot;</code>) to control how they are separated.</p></li>
 <li><p>Make a vector of strings become one string: <code>str_c(a_vector_of_strings, collapse = &quot;&quot;)</code> or <code>paste0(a_vector_of_string, collapse = &quot;&quot;)</code></p></li>
 <li><p>Take a sub-string: <code>str_sub(a_srring, start = ?, end = ?)</code>. Note that the <code>start</code> and <code>end</code> can take negative values.</p></li>
 <li><p>Change to lower- upper- or title-case: <code>str_to_lower()</code>, <code>str_to_upper()</code>, <code>str_to_title()</code></p></li>
