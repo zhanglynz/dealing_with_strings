@@ -203,7 +203,7 @@ rm_suffix_df <-
 (rm_suffix_df)
 ```
 
-## Roving spaces {-}
+## Removing spaces {-}
 ```{r, warning=FALSE, message=FALSE}
 library(stringr)
 
