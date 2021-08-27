@@ -115,15 +115,15 @@ list(names(fk_df), noquote(names(fk_df)))
 library(stringr)
 corpus <- stringr::words
 
-(three_letter_words <- corpus[str_detect(corpus, "^[a-z][a-z][a-z]$")])
+(three_letter_words <- corpus[str_detect(corpus, "^([a-z]|[A-Z]){3}$")])
 
-(seven_or_more_letter_words <- corpus[str_detect(corpus, "^.......+$")])
+(seven_or_more_letter_words <- corpus[str_detect(corpus, "^([a-z]|[A-Z]){7,}$")])
 
 (start_with_y <- corpus[str_detect(corpus, "^y")])
 (end_with_x <- corpus[str_detect(corpus, "x$")])
  
-(start_with_vowel <- corpus[str_detect(corpus, "^[aeiou]")])
-(not_contain_vowel <- corpus[str_detect(corpus, "^[^aeiou]*$")])
+(start_with_vowel <- corpus[str_detect(corpus, "^[aeiouAEIOU]")])
+(not_contain_vowel <- corpus[str_detect(corpus, "^[^aeiouAEIOU]+$")])
  
 (end_with_ed_but_not_eed <-
   corpus[str_detect(corpus, "[^e](ed)$")])
@@ -132,19 +132,19 @@ corpus <- stringr::words
   corpus[str_detect(corpus, "(ing)|(ise)$")])
 
 (start_with_3_consonants <-
-  corpus[str_detect(corpus, "^[^aeiou]{3}")])
+  corpus[str_detect(corpus, "^[^aeiouAEIOU]{3}")])
 
 (three_or_more_vowels_in_a_row <-
-  corpus[str_detect(corpus, "[aeiou]{3,}")])
+  corpus[str_detect(corpus, "[aeiouAEIOU]{3,}")])
 
 (two_or_more_vowel_consonant_pairs_in_a_row <-
-  corpus[str_detect(corpus, "([aeiou][^aeiou]){2,}")])
+  corpus[str_detect(corpus, "([aeiouAEIOU][^aeiouAEIOU]){2,}")])
 
 (start_or_end_with_x <-
   str_subset(corpus, "^x|x$"))
  
 (start_with_vowel_and_end_with_consonant <-
-  str_subset(corpus, "^[aeiou].*[^aeiou]$"))
+  str_subset(corpus, "^[aeiouAEIOU].*[^aeiouAEIOU]$"))
 
 a_words <-
   str_subset(corpus, "a")
@@ -253,4 +253,22 @@ df_2 <-
 df_2
 ```
 
+
+## Difference between `.+` and `.*` {-}
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+
+fk_data <-
+  data.frame(x = c('123_123', 
+                   '456_123', 
+                   '567_23', 
+                   '123_', 
+                   '456_'))
+fk_data_a <-
+  fk_data %>%
+  mutate(x_a = str_replace(x, "_.+$", ""),
+         x_b = str_replace(x, "_.*$", ""))
+fk_data_a
+```
 

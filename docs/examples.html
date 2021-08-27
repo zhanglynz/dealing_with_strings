@@ -25,7 +25,7 @@
 <meta name="author" content="Lingyun Zhang">
 
 
-<meta name="date" content="2020-04-04">
+<meta name="date" content="2021-08-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -112,6 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="examples.html"><a href="examples.html#removing-spaces"><i class="fa fa-check"></i>Removing spaces</a></li>
 <li><a href="examples.html#using-str_split_fixed">Using <code>str_split_fixed</code></a></li>
 <li><a href="examples.html#using-filter-and-str_detect">Using <code>filter</code> and <code>str_detect</code></a></li>
+<li><a href="examples.html#difference-between-.-and-.">Difference between <code>.+</code> and <code>.*</code></a></li>
 </ul></li>
 </ul>
 
@@ -158,7 +159,7 @@ fk_string</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
 corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 
-(three_letter_words &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[a-z][a-z][a-z]$&quot;</span>)])</code></pre></div>
+(three_letter_words &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^([a-z]|[A-Z]){3}$&quot;</span>)])</code></pre></div>
 <pre><code>##   [1] &quot;act&quot; &quot;add&quot; &quot;age&quot; &quot;ago&quot; &quot;air&quot; &quot;all&quot; &quot;and&quot; &quot;any&quot; &quot;arm&quot; &quot;art&quot; &quot;ask&quot;
 ##  [12] &quot;bad&quot; &quot;bag&quot; &quot;bar&quot; &quot;bed&quot; &quot;bet&quot; &quot;big&quot; &quot;bit&quot; &quot;box&quot; &quot;boy&quot; &quot;bus&quot; &quot;but&quot;
 ##  [23] &quot;buy&quot; &quot;can&quot; &quot;car&quot; &quot;cat&quot; &quot;cup&quot; &quot;cut&quot; &quot;dad&quot; &quot;day&quot; &quot;die&quot; &quot;dog&quot; &quot;dry&quot;
@@ -169,7 +170,7 @@ corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 ##  [78] &quot;put&quot; &quot;red&quot; &quot;rid&quot; &quot;run&quot; &quot;say&quot; &quot;see&quot; &quot;set&quot; &quot;sex&quot; &quot;she&quot; &quot;sir&quot; &quot;sit&quot;
 ##  [89] &quot;six&quot; &quot;son&quot; &quot;sun&quot; &quot;tax&quot; &quot;tea&quot; &quot;ten&quot; &quot;the&quot; &quot;tie&quot; &quot;too&quot; &quot;top&quot; &quot;try&quot;
 ## [100] &quot;two&quot; &quot;use&quot; &quot;war&quot; &quot;way&quot; &quot;wee&quot; &quot;who&quot; &quot;why&quot; &quot;win&quot; &quot;yes&quot; &quot;yet&quot; &quot;you&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(seven_or_more_letter_words &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^.......+$&quot;</span>)])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(seven_or_more_letter_words &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^([a-z]|[A-Z]){7,}$&quot;</span>)])</code></pre></div>
 <pre><code>##   [1] &quot;absolute&quot;    &quot;account&quot;     &quot;achieve&quot;     &quot;address&quot;     &quot;advertise&quot;  
 ##   [6] &quot;afternoon&quot;   &quot;against&quot;     &quot;already&quot;     &quot;alright&quot;     &quot;although&quot;   
 ##  [11] &quot;america&quot;     &quot;another&quot;     &quot;apparent&quot;    &quot;appoint&quot;     &quot;approach&quot;   
@@ -218,7 +219,7 @@ corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 <pre><code>## [1] &quot;year&quot;      &quot;yes&quot;       &quot;yesterday&quot; &quot;yet&quot;       &quot;you&quot;       &quot;young&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(end_with_x &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;x$&quot;</span>)])</code></pre></div>
 <pre><code>## [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(start_with_vowel &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[aeiou]&quot;</span>)])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(start_with_vowel &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[aeiouAEIOU]&quot;</span>)])</code></pre></div>
 <pre><code>##   [1] &quot;a&quot;           &quot;able&quot;        &quot;about&quot;       &quot;absolute&quot;    &quot;accept&quot;     
 ##   [6] &quot;account&quot;     &quot;achieve&quot;     &quot;across&quot;      &quot;act&quot;         &quot;active&quot;     
 ##  [11] &quot;actual&quot;      &quot;add&quot;         &quot;address&quot;     &quot;admit&quot;       &quot;advertise&quot;  
@@ -254,7 +255,7 @@ corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 ## [161] &quot;out&quot;         &quot;over&quot;        &quot;own&quot;         &quot;under&quot;       &quot;understand&quot; 
 ## [166] &quot;union&quot;       &quot;unit&quot;        &quot;unite&quot;       &quot;university&quot;  &quot;unless&quot;     
 ## [171] &quot;until&quot;       &quot;up&quot;          &quot;upon&quot;        &quot;use&quot;         &quot;usual&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(not_contain_vowel &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[^aeiou]*$&quot;</span>)])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(not_contain_vowel &lt;-<span class="st"> </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[^aeiouAEIOU]+$&quot;</span>)])</code></pre></div>
 <pre><code>## [1] &quot;by&quot;  &quot;dry&quot; &quot;fly&quot; &quot;mrs&quot; &quot;try&quot; &quot;why&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(end_with_ed_but_not_eed &lt;-
 <span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;[^e](ed)$&quot;</span>)])</code></pre></div>
@@ -266,16 +267,16 @@ corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 ## [11] &quot;raise&quot;     &quot;realise&quot;   &quot;ring&quot;      &quot;rise&quot;      &quot;sing&quot;     
 ## [16] &quot;single&quot;    &quot;surprise&quot;  &quot;thing&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(start_with_3_consonants &lt;-
-<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[^aeiou]{3}&quot;</span>)])</code></pre></div>
+<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;^[^aeiouAEIOU]{3}&quot;</span>)])</code></pre></div>
 <pre><code>##  [1] &quot;Christ&quot;    &quot;Christmas&quot; &quot;dry&quot;       &quot;fly&quot;       &quot;mrs&quot;      
 ##  [6] &quot;scheme&quot;    &quot;school&quot;    &quot;straight&quot;  &quot;strategy&quot;  &quot;street&quot;   
 ## [11] &quot;strike&quot;    &quot;strong&quot;    &quot;structure&quot; &quot;system&quot;    &quot;three&quot;    
 ## [16] &quot;through&quot;   &quot;throw&quot;     &quot;try&quot;       &quot;type&quot;      &quot;why&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(three_or_more_vowels_in_a_row &lt;-
-<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;[aeiou]{3,}&quot;</span>)])</code></pre></div>
+<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;[aeiouAEIOU]{3,}&quot;</span>)])</code></pre></div>
 <pre><code>## [1] &quot;beauty&quot;   &quot;obvious&quot;  &quot;previous&quot; &quot;quiet&quot;    &quot;serious&quot;  &quot;various&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(two_or_more_vowel_consonant_pairs_in_a_row &lt;-
-<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;([aeiou][^aeiou]){2,}&quot;</span>)])</code></pre></div>
+<span class="st">  </span>corpus[<span class="kw">str_detect</span>(corpus, <span class="st">&quot;([aeiouAEIOU][^aeiouAEIOU]){2,}&quot;</span>)])</code></pre></div>
 <pre><code>##   [1] &quot;absolute&quot;    &quot;agent&quot;       &quot;along&quot;       &quot;america&quot;     &quot;another&quot;    
 ##   [6] &quot;apart&quot;       &quot;apparent&quot;    &quot;authority&quot;   &quot;available&quot;   &quot;aware&quot;      
 ##  [11] &quot;away&quot;        &quot;balance&quot;     &quot;basis&quot;       &quot;become&quot;      &quot;before&quot;     
@@ -314,7 +315,7 @@ corpus &lt;-<span class="st"> </span>stringr<span class="op">::</span>words
 <span class="st">  </span><span class="kw">str_subset</span>(corpus, <span class="st">&quot;^x|x$&quot;</span>))</code></pre></div>
 <pre><code>## [1] &quot;box&quot; &quot;sex&quot; &quot;six&quot; &quot;tax&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(start_with_vowel_and_end_with_consonant &lt;-
-<span class="st">  </span><span class="kw">str_subset</span>(corpus, <span class="st">&quot;^[aeiou].*[^aeiou]$&quot;</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">str_subset</span>(corpus, <span class="st">&quot;^[aeiouAEIOU].*[^aeiouAEIOU]$&quot;</span>))</code></pre></div>
 <pre><code>##   [1] &quot;about&quot;       &quot;accept&quot;      &quot;account&quot;     &quot;across&quot;      &quot;act&quot;        
 ##   [6] &quot;actual&quot;      &quot;add&quot;         &quot;address&quot;     &quot;admit&quot;       &quot;affect&quot;     
 ##  [11] &quot;afford&quot;      &quot;after&quot;       &quot;afternoon&quot;   &quot;again&quot;       &quot;against&quot;    
@@ -370,10 +371,10 @@ rm_prefix_df</code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   a_var             x the_prefix
 ##   &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;
-## 1 poor 1      -0.903          10
-## 2 ok 2         0.704          20
-## 3 very good 3  0.0744         30
-## 4 NA           1.36          999</code></pre>
+## 1 poor 1       0.0640         10
+## 2 ok 2        -0.107          20
+## 3 very good 3 -1.38           30
+## 4 NA           0.313         999</code></pre>
 </div>
 <div id="removing-a-suffix" class="section level2 unnumbered">
 <h2>Removing a suffix</h2>
@@ -392,22 +393,22 @@ rm_suffix_df &lt;-<span class="st"> </span>
 
 (rm_suffix_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 2
-##   region     x
-##   &lt;chr&gt;  &lt;dbl&gt;
-## 1 A       1.69
-## 2 AB     -1.42
-## 3 ABC    -1.13</code></pre>
+##   region      x
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 A      -0.424
+## 2 AB      0.361
+## 3 ABC     1.22</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Method 2
 rm_suffix_df &lt;-<span class="st"> </span>
 <span class="st">  </span>fk_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">region =</span> <span class="kw">str_sub</span>(region, <span class="dv">1</span>, <span class="kw">nchar</span>(region) <span class="op">-</span><span class="st"> </span><span class="dv">7</span>))
 (rm_suffix_df)</code></pre></div>
 <pre><code>## # A tibble: 3 x 2
-##   region     x
-##   &lt;chr&gt;  &lt;dbl&gt;
-## 1 A       1.69
-## 2 AB     -1.42
-## 3 ABC    -1.13</code></pre>
+##   region      x
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 A      -0.424
+## 2 AB      0.361
+## 3 ABC     1.22</code></pre>
 </div>
 <div id="removing-spaces" class="section level2 unnumbered">
 <h2>Removing spaces</h2>
@@ -462,9 +463,31 @@ df_<span class="dv">2</span> &lt;-<span class="st"> </span>
 
 df_<span class="dv">2</span></code></pre></div>
 <pre><code>##      x          y
-## 1 x-18 -0.8747212
-## 2 a-18 -0.4068652
-## 3 b-18 -0.9172947</code></pre>
+## 1 x-18 -2.4080798
+## 2 a-18  0.3568639
+## 3 b-18 -1.1986547</code></pre>
+</div>
+<div id="difference-between-.-and-." class="section level2 unnumbered">
+<h2>Difference between <code>.+</code> and <code>.*</code></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+
+fk_data &lt;-
+<span class="st">  </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&#39;123_123&#39;</span>, 
+                   <span class="st">&#39;456_123&#39;</span>, 
+                   <span class="st">&#39;567_23&#39;</span>, 
+                   <span class="st">&#39;123_&#39;</span>, 
+                   <span class="st">&#39;456_&#39;</span>))
+fk_data_a &lt;-
+<span class="st">  </span>fk_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x_a =</span> <span class="kw">str_replace</span>(x, <span class="st">&quot;_.+$&quot;</span>, <span class="st">&quot;&quot;</span>),
+         <span class="dt">x_b =</span> <span class="kw">str_replace</span>(x, <span class="st">&quot;_.*$&quot;</span>, <span class="st">&quot;&quot;</span>))
+fk_data_a</code></pre></div>
+<pre><code>##         x  x_a x_b
+## 1 123_123  123 123
+## 2 456_123  456 456
+## 3  567_23  567 567
+## 4    123_ 123_ 123
+## 5    456_ 456_ 456</code></pre>
 
 </div>
 </div>
